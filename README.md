@@ -19,7 +19,7 @@ Ensure you have the following installed:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-repo/docker-wordpress.git
+   git clone https://github.com/opendatadurban/odp-wordpress.git
    cd docker-wordpress
    ```
 
