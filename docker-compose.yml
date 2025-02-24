@@ -1,18 +1,5 @@
+
 services:
-  wordpress:
-    image: custom-wordpress
-    build: ./wordpress
-    container_name: wordpress_app
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: wp_user
-      WORDPRESS_DB_PASSWORD: wp_password
-      WORDPRESS_DB_NAME: wp_database
-    volumes:
-      - ./wordpress/wp-content:/var/www/html/wp-content  # Mount custom themes and plugins
 
   db:
     image: mysql:5.7
@@ -25,7 +12,29 @@ services:
       MYSQL_ROOT_PASSWORD: root_password
     volumes:
       - db_data:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Run DB initialization script
+      #- ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Run DB initialization script
+    networks:
+      - wp
+
+  wordpress:
+    image: wordpress:latest
+    #build: ./wordpress
+    #container_name: wordpress_app
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_password
+      WORDPRESS_DB_NAME: wp_database
+    volumes: ["./html:/var/www/html"]
+    #volumes:
+    #  - ./wordpress/wp-content:/var/www/html/wp-content  # Mount custom themes and plugins
+    networks:
+      - wp
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -36,6 +45,11 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root_password
+    networks:
+      - wp
+
+networks:
+  wp:
 
 volumes:
   db_data:
