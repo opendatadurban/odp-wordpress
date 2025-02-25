@@ -15,29 +15,22 @@ add_action('after_setup_theme', 'coct_site_features');
 
 // Add something to the <head> section
 function add_user_feedback_code() {
-    ?>
-   
+    ?>   
     <script>
-        window.Userback = window.Userback || {};
-        Userback.access_token = 'A-ha8YH6mRJS2dB0Mh4GPd5I1qncr7GqYxyNMjBOSgrH05Z1b44';
-
-        // identify your logged-in users (optional)
-        Userback.user_data = {
-            id: "123456", // example data
-            info: {
+            window.Userback = window.Userback || {};
+            Userback.access_token = 'P-POCWZDNZOhBRSgc3GGI2YEj9s';
+            // identify your logged-in users (optional)
+            Userback.user_data = {
+                id: "123456", // example data
+                info: {
                 name: "someone", // example data
                 email: "someone@example.com" // example data
-            }
-        };
-
-        (function(d) {
-            var s = d.createElement('script');
-            s.async = true;
-            s.src = 'https://static.userback.io/widget/v1.js';
-            (d.head || d.body).appendChild(s);
-        })(document);
+                }
+            };
+            (function(d) {
+                var s = d.createElement('script');s.async = true;s.src = 'https://static.userback.io/widget/v1.js';(d.head || d.body).appendChild(s);
+            })(document);
         </script>
-
     <?php
 }
 add_action('wp_head', 'add_user_feedback_code');
