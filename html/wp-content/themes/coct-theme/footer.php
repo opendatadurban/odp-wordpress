@@ -35,9 +35,9 @@
    
       <a href="<?php echo home_url(); ?>">HOME</a>
     
-      <a href="#">TERMS OF USE</a>
+      <a href="https://www.capetown.gov.za/General/Terms-of-use">TERMS OF USE</a>
     
-      <a href="#">PRIVACY</a>
+      <a href="https://www.capetown.gov.za/General/Privacy">PRIVACY</a>
     
 </div>
 
