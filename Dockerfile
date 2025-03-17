@@ -1,10 +1,18 @@
 FROM wordpress:latest
 
-# Copy custom themes and plugins
-COPY wp-content/themes /var/www/html/wp-content/themes
-COPY wp-content/plugins /var/www/html/wp-content/plugins
+# Create directory for custom theme
+RUN mkdir -p /usr/src/coct-theme
 
-# Set correct permissions
-RUN chown -R www-data:www-data /var/www/html/wp-content
+# Copy custom theme files from the repository
+COPY html/wp-content/themes/coct-theme /usr/src/coct-theme/
 
+# Copy the themes installation script
+COPY install-themes.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-themes.sh
+
+# Set up entrypoint wrapper
+COPY docker-entrypoint-custom.sh /usr/local/bin/docker-entrypoint-custom.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-custom.sh
+
+ENTRYPOINT ["docker-entrypoint-custom.sh"]
 CMD ["apache2-foreground"]
