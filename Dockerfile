@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 wordpress:latest
+FROM --platform=linux/arm64 wordpress:latest
 
 # Create directory for custom theme
 RUN mkdir -p /usr/src/coct-theme
