@@ -17,7 +17,7 @@ if [ -d "/usr/src/${THEME_NAME}" ]; then
     
     # Copy the custom theme to the WordPress themes directory
     mkdir -p "$CUSTOM_THEME_DIR"
-    cp -r "/usr/src/${THEME_NAME}" "$CUSTOM_THEME_DIR/"
+    cp -r "/usr/src/${THEME_NAME}" "$THEMES_DIR"
     
     # Set proper permissions
     chown -R www-data:www-data "$CUSTOM_THEME_DIR"
