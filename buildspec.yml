@@ -26,12 +26,12 @@ phases:
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo '[{"name":"wordpress","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > image_definitions.json
+      - echo '[{"name":"wordpress","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
       
 
 artifacts:
   files:
-    - image_definitions.json
+    - imagedefinitions.json
   discard-paths: yes
   secondary-artifacts:
     imagedefinitions:
