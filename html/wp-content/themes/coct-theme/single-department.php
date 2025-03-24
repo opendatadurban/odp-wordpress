@@ -425,8 +425,8 @@ $data_stories_query_posts = $data_stories_query->posts;
         margin: 20px;
       }
       .data_story_link {
-        height: 250px;
-        width: 400px;        
+        /*height: 250px;
+        width: 400px;        */
       }      
       .data_story_image_wrapper {  
         position: relative;      
@@ -459,7 +459,7 @@ $data_stories_query_posts = $data_stories_query->posts;
         position: absolute;
         top: 12px;
         left: 12px;
-        width: 80%;
+        width: 350px;
         color: #4c4c4c;
         text-decoration: none;
         font-size: 12px;

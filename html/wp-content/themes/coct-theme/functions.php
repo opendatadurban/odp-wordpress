@@ -42,6 +42,14 @@ function add_user_feedback_code() {
 }
 add_action('wp_head', 'add_user_feedback_code');
 
+/* Register menus */
+register_nav_menus(
+    array(
+    'primary-menu' => __( 'Primary Menu' ),
+    'secondary-menu' => __( 'Secondary Menu' )
+    )
+);
+
 
 
 
