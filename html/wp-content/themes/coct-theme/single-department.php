@@ -313,7 +313,7 @@ $data_stories_query_posts = $data_stories_query->posts;
         <ul class="department_content_left_vertical_tabs">
 
 
-             <!-- main default tab as set in department page -->
+            <!-- main default tab as set in department page -->
             <li class="department_content_left_vertical_tab_main">
                 <a href="#"><?php echo $main_default_dashboard_title; ?></a>
             </li>
@@ -401,46 +401,213 @@ $data_stories_query_posts = $data_stories_query->posts;
   <!-- other tabs -->
 
   <style>
+
+      /* Data stories tabs  */
+
       #economic_analysis_datastories_tab_content {
+        display:grid; 
+        grid-template-columns: .5fr 5fr .5fr; 
         border: 0px solid blue;
-        height:700px;
+        /*height:700px;*/
         background-color:white;
+        display: none;
+      }
+      .data_stories_container {
+        display: flex;
+        flex-wrap: wrap;  
+        padding: 40px 50px;      
+      }
+      .data_story_item {
+        position: relative;  
+        flex: 25%;
+        width: 350px; 
+        height: 380px; 
+        margin: 20px;
+      }
+      .data_story_link {
+        height: 250px;
+        width: 400px;        
+      }      
+      .data_story_image_wrapper {  
+        position: relative;      
+        height: 250px;
+        width: 400px;       
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;        
+        -webkit-border-radius: 10px 10px 0px 0px;
+        -moz-border-radius: 10px 10px 0px 0px;
+        border-radius: 10px 10px 0px 0px;
+        /*background-image: in for loop*/
+
+        
+      }      
+      .data_story_chips_wrapper {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 4px;        
+        background-color: #cc0;   
+        border-radius: 4px;     
+      }
+      .data_story_chips_wrapper span {
+        color: white;              
+        text-decoration: none;      
+      }
+      .data_story_image_text {
+        display: none;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 80%;
+        color: #4c4c4c;
+        text-decoration: none;
+        font-size: 12px;
+        line-height: 25px;        
+        object-fit: contain;
+        font-size: 16px;              
+        z-index: 99;        
       }
 
+      .data_story_image_on_hover {
+        background-color: #ffffffe6;
+        opacity: 0.25;
+        -webkit-text-fill-color: inherit;
+      }
+      
+      .data_story_white_text_box {
+        position: relative;
+        background-color:white;
+        /*border: 1px solid black;*/
+        height: 129px;
+        width: 400px;      
+        box-shadow: 0 10px 10px #0000001a;
+        border-radius: 5px;          
+      }
+      .data_story_item_heading {
+        position: absolute;
+        top: 25px;
+        left: 30px;
+        font-size: 18px;
+        color: #0079c1;
+      }
+      .data_story_item_author {
+        color: #4c4c4c;
+        position: absolute;
+        top: 70px;
+        left: 30px;
+      }
+      .data_story_item_author span {
+        color: #afaeba;
+        font-weight: 500;
+      }
+      .data_story_item_published {
+        color: #4c4c4c;
+        position: absolute;
+        top: 70px;
+        left: 260px;
+      }
+      .data_story_item_published span {
+        color: #afaeba;
+        font-weight: 500;
+      }
 
+      /* Datasets main tab */
+      #economic_analysis_datasets_tab_content {
+        border: 0px solid blue;
+        height: 1500px;
+        background-color: white;
+      }
 
   </style>
 
-  <div id="economic_analysis_datastories_tab_content" class="tab_content tab-content-inactive" style="">
-      <div style="display: grid;grid-template-columns: .75fr 4fr 1fr;
-            padding-top: 55px;padding-bottom: 55px;
-            margin: 0px;">
+  <script>
 
-            <div>
-              
-            </div>
-            <div>
+jQuery(document).ready(function($) {        
+    
+        /* Economic Analysis Page Tabs */
+        $('.data_story_link').hover(function(){
+    
+            var item_id = $(this).attr('id');            
+            //console.log('#' + item_id + ' .data_story_image_text');
+            $( '#' + item_id + ' .data_story_image_text' ).toggle();   
+            $( '#' + item_id + ' .data_story_image_wrapper' ).toggleClass("data_story_image_on_hover");    
+           
+        });   
+    
+    })
+
+  </script>
+
+  <div id="economic_analysis_datastories_tab_content" class="tab_content tab-content-inactive" style="">
+      <!-- Sidebar right -->
+      <div></div>
+      <div class="data_stories_container" style="">          
 
               <?php
-                foreach($data_stories_query_posts as $data_story){
-                  //echo $data_story->post_title;
-                  //echo "<br>";
-                  //post_excerpt
+                foreach($data_stories_query_posts as $data_story){ 
+                  $data_story_pod = pods( 'department_data_stor', $data_story->ID );
+                  $data_story_author = $data_story_pod->field( 'data_story_author' );
+                  $data_story_published_date = $data_story_pod->field( 'data_story_published_date' );
+                  $data_story_featured_image = $data_story_pod->field( 'data_story_featured_image' );
+                  $data_story_url = get_permalink( $data_story->ID );
 
-                }
+                  //var_dump($data_story_pod);
 
-              ?>
+                  ?>                 
 
-              <img src="<?php echo get_theme_file_uri('/images/data_stories_placeholder.jpg'); ?>">
-            </div>
-            <div>
-              
-            </div>
+                  <div class="data_story_item">
+
+                    <a id="data_story_link_<?php echo $data_story->ID; ?>" class="data_story_link" href="<?php echo $data_story_url; ?>">   
+
+                      <div class="data_story_image_text">
+                          The following sections serve as a guide to the Economy and Employment chapter, Population and Demographics chapter, the Environment and Natural Wealth chapter and the Urban Governance chapter.
+                      </div>  
+                                    
+                      <div class="data_story_image_wrapper" style="background-image: url('<?php echo $data_story_featured_image["guid"]; ?>')">
+                        <div class="data_story_chips_wrapper">
+                            <span>
+                              Research
+                            </span>
+                        </div>
+                        <!--<div class="data_story_image_text">
+                          The following sections serve as a guide to the Economy and Employment chapter, Population and Demographics chapter, the Environment and Natural Wealth chapter and the Urban Governance chapter.
+                        </div>-->
+                      </div>
+
+                      <div class="data_story_white_text_box">
+                        <div class="data_story_item_heading">
+                          <?php echo $data_story->post_title; ?>
+                        </div>
+                        <div class="data_story_item_author">
+                          <?php echo $data_story_author; ?>
+                          <br>
+                          <span>AUTHOR</span>
+                        </div>
+                        <div class="data_story_item_published">
+                          <?php echo $data_story_published_date; ?>
+                          <br>
+                          <span>PUBLISHED</span>
+                        </div>
+                        <?php ; ?>
+                      </div>  
+                      
+                    </a>
+                  
+                  </div>
+                  
+
+                <?php } ?>
+
+              <!-- <img src="<?php //echo get_theme_file_uri('/images/data_stories_placeholder.jpg'); ?>"> -->
+         
         
       </div>
+      <!-- Sidebar right -->
+      <div></div>
   </div>  
   
-  <div id="economic_analysis_datasets_tab_content" class="tab_content tab-content-inactive" style="border: 0px solid blue;height:1500px;background-color:white;">
+  <div id="economic_analysis_datasets_tab_content" class="tab_content tab-content-inactive">
     <iframe src="<?php echo $department_datasets_iframe_url; ?>" width="100%" height="100%" frameborder="0"></iframe>
   </div>  
   
