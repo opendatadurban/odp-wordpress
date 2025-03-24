@@ -17,7 +17,10 @@ jQuery(document).ready(function($) {
             $(this).removeClass('tab-inactive');
     
             $('.tab_content').hide();
+            $('.tab_content').css('visibility','hidden');
+            
             $('#'+t+'_content').show();
+            $('#'+t+'_content').css('visibility','visible');
 
         }
 

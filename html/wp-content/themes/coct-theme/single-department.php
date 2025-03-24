@@ -406,16 +406,16 @@ $data_stories_query_posts = $data_stories_query->posts;
 
       #economic_analysis_datastories_tab_content {
         display:grid; 
-        grid-template-columns: .5fr 5fr .5fr; 
+        grid-template-columns: .75fr 5fr .5fr; 
         border: 0px solid blue;
         /*height:700px;*/
         background-color:white;
-        display: none;
+        visibility: hidden;
       }
       .data_stories_container {
         display: flex;
         flex-wrap: wrap;  
-        padding: 40px 50px;      
+        padding: 40px 50px;              
       }
       .data_story_item {
         position: relative;  
@@ -525,7 +525,7 @@ $data_stories_query_posts = $data_stories_query->posts;
 
 jQuery(document).ready(function($) {        
     
-        /* Economic Analysis Page Tabs */
+        /* Data stories text / background opacity hover */
         $('.data_story_link').hover(function(){
     
             var item_id = $(this).attr('id');            
@@ -542,7 +542,7 @@ jQuery(document).ready(function($) {
   <div id="economic_analysis_datastories_tab_content" class="tab_content tab-content-inactive" style="">
       <!-- Sidebar right -->
       <div></div>
-      <div class="data_stories_container" style="">          
+      <div class="data_stories_container">          
 
               <?php
                 foreach($data_stories_query_posts as $data_story){ 
