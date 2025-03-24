@@ -45,6 +45,9 @@ Ensure you have the following installed:
 │   ├── Dockerfile             # Custom WordPress build
 │   ├── wp-content             # Custom themes and plugins
 ├── docker-compose.yml         # Service definitions
+├── docker-entrypoint-custom.sh # Docker entrypoint 
+├── install-themes.sh          # Install custom theme on EFS
+├── buildspec.yml              # Build instructions for AWS pipeline
 └── README.md                  # This documentation
 ```
 
@@ -82,10 +85,35 @@ docker-compose up -d
   docker exec -it wordpress_db mysql -u wp_user -p
   ```
 
-## Next Steps
-- Secure MySQL credentials using environment variables.
-- Add volume mounting for WordPress uploads.
-- Automate plugin/theme installation via scripts.
+# Docker Entrypoint & Deployment
+
+## Custom Docker Entrypoint
+
+Our WordPress setup uses a custom Docker entrypoint script to ensure proper synchronization with AWS EFS (Elastic File System). This entrypoint script:
+
+1. Copies theme files from the container to the mounted EFS volume
+2. Ensures proper file permissions are maintained
+
+The entrypoint script is located at `/usr/local/bin/docker-entrypoint-custom.sh` in the container and executes automatically when the container starts. This approach ensures that your theme files are always up-to-date on the shared EFS volume, allowing for seamless scaling across multiple EC2 instances.
+
+## CI/CD Pipeline
+
+Our repository implements a streamlined CI/CD workflow that automatically builds and deploys changes merged into the `main` branch:
+
+1. When code is merged into `main`, GitHub pushes the code via a webhook to AWS codepipeline
+2. The Docker image is built in AWS codebuild with the latest theme changes
+3. The image is pushed to Amazon ECR (Elastic Container Registry)
+4. AWS ECS (Elastic Container Service) is notified of the new image
+5. ECS initiates a rolling deployment to EC2 instances
+6. If the task fails to start 3 times a circuit breaker rolls back the deploy
+
+This automated deployment process ensures that any changes merged into the `main` branch are quickly and reliably deployed to the production environment without manual intervention.
+
+## Best Practices
+
+- Always merge code to `main` only after thorough testing in development/staging environments
+- Monitor AWS CloudWatch logs after deployment to verify successful application startup
+- Rolling deployments ensure zero-downtime updates
 
 Feel free to contribute or report issues!
 
