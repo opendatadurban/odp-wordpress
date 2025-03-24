@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - aws --version
+      - docker --version
+      - echo "Setting up Docker Buildx for multi-architecture builds"
+      - docker buildx create --name mybuilder --use
+      - docker buildx inspect --bootstrap
+  
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker buildx build --platform linux/arm64 -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG --push .
+      - echo '[{"name":"wordpress","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
+  discard-paths: yes
+  secondary-artifacts:
+    imagedefinitions:
+      base-directory: $CODEBUILD_SRC_DIR
+      files: imagedefinitions.json
+      name: "imagedefinitions"
+
+cache:
+  paths:
+    - '/root/.pip-cache/**/*'
