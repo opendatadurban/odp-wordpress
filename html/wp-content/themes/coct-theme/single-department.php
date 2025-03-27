@@ -163,8 +163,7 @@ $data_stories_query_posts = $data_stories_query->posts;
     </div>
 </div>
 
-
-
+<!-- Output main page tabs -->
 
 <div class="top-page-blue-bar-with-tab-buttons">
   <div></div>
@@ -188,6 +187,8 @@ $data_stories_query_posts = $data_stories_query->posts;
   </div>
 
 </div>
+
+<!-- End of Output main page tabs -->
 
 
 <!-- start of main analysys tab -->
@@ -342,6 +343,8 @@ $data_stories_query_posts = $data_stories_query->posts;
       </div>
       <!-- end of tab sidebar -->
 
+      
+      <!-- First tab: Dashboards -->
       <!-- start of tab iframe container -->
       <div class="tab_content_main">
           
@@ -363,10 +366,17 @@ $data_stories_query_posts = $data_stories_query->posts;
               </div>
 
               <div>
-                <a href="#" style="color:#4c4c4c;cursor: pointer;text-decoration: underline;font-weight: 500;">Meta Info</a>
+                <a id="meta_info_popup_show" href="#" style="color:#4c4c4c;cursor: pointer;text-decoration: underline;font-weight: 500;">Meta Info</a>
                 <!--
                 <div>Popup content: <?php // echo $dashboard_meta_info; ?>
                 -->
+              </div>
+
+              <div id="meta_info_popup_content">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
+                    <path fill="CurrentColor" d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"></path>
+                  </svg>
+                  <pre><?php echo htmlspecialchars_decode($dashboard_meta_info); ?></pre>
               </div>
 
           </div>
@@ -400,144 +410,8 @@ $data_stories_query_posts = $data_stories_query->posts;
   
   <!-- other tabs -->
 
-  <style>
-
-      /* Data stories tabs  */
-
-      #economic_analysis_datastories_tab_content {
-        display:grid; 
-        grid-template-columns: .75fr 5fr .5fr; 
-        border: 0px solid blue;
-        /*height:700px;*/
-        background-color:white;
-        visibility: hidden;
-      }
-      .data_stories_container {
-        display: flex;
-        flex-wrap: wrap;  
-        padding: 40px 50px;              
-      }
-      .data_story_item {
-        position: relative;  
-        flex: 25%;
-        width: 350px; 
-        height: 380px; 
-        margin: 20px;
-      }
-      .data_story_link {
-        /*height: 250px;
-        width: 400px;        */
-      }      
-      .data_story_image_wrapper {  
-        position: relative;      
-        height: 250px;
-        width: 400px;       
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;        
-        -webkit-border-radius: 10px 10px 0px 0px;
-        -moz-border-radius: 10px 10px 0px 0px;
-        border-radius: 10px 10px 0px 0px;
-        /*background-image: in for loop*/
-
-        
-      }      
-      .data_story_chips_wrapper {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        padding: 4px;        
-        background-color: #cc0;   
-        border-radius: 4px;     
-      }
-      .data_story_chips_wrapper span {
-        color: white;              
-        text-decoration: none;      
-      }
-      .data_story_image_text {
-        display: none;
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        width: 350px;
-        color: #4c4c4c;
-        text-decoration: none;
-        font-size: 12px;
-        line-height: 25px;        
-        object-fit: contain;
-        font-size: 16px;              
-        z-index: 99;        
-      }
-
-      .data_story_image_on_hover {
-        background-color: #ffffffe6;
-        opacity: 0.25;
-        -webkit-text-fill-color: inherit;
-      }
-      
-      .data_story_white_text_box {
-        position: relative;
-        background-color:white;
-        /*border: 1px solid black;*/
-        height: 129px;
-        width: 400px;      
-        box-shadow: 0 10px 10px #0000001a;
-        border-radius: 5px;          
-      }
-      .data_story_item_heading {
-        position: absolute;
-        top: 25px;
-        left: 30px;
-        font-size: 18px;
-        color: #0079c1;
-      }
-      .data_story_item_author {
-        color: #4c4c4c;
-        position: absolute;
-        top: 70px;
-        left: 30px;
-      }
-      .data_story_item_author span {
-        color: #afaeba;
-        font-weight: 500;
-      }
-      .data_story_item_published {
-        color: #4c4c4c;
-        position: absolute;
-        top: 70px;
-        left: 260px;
-      }
-      .data_story_item_published span {
-        color: #afaeba;
-        font-weight: 500;
-      }
-
-      /* Datasets main tab */
-      #economic_analysis_datasets_tab_content {
-        border: 0px solid blue;
-        height: 1500px;
-        background-color: white;
-      }
-
-  </style>
-
-  <script>
-
-jQuery(document).ready(function($) {        
-    
-        /* Data stories text / background opacity hover */
-        $('.data_story_link').hover(function(){
-    
-            var item_id = $(this).attr('id');            
-            //console.log('#' + item_id + ' .data_story_image_text');
-            $( '#' + item_id + ' .data_story_image_text' ).toggle();   
-            $( '#' + item_id + ' .data_story_image_wrapper' ).toggleClass("data_story_image_on_hover");    
-           
-        });   
-    
-    })
-
-  </script>
+  <!-- Department page Data stories tabs -->
+ 
 
   <div id="economic_analysis_datastories_tab_content" class="tab_content tab-content-inactive" style="">
       <!-- Sidebar right -->

@@ -170,7 +170,7 @@ $data_story_content = get_the_content();
                 <div><?php echo $data_story_title; ?> </div>
             </div>
             <div class="data_story_logo">
-                <img src="<?php echo get_theme_file_uri('/images/city-of-cape-town-grey-logo.png'); ?>">        
+                <img src="<?php echo get_theme_file_uri('/images/city-of-cape-town-grey-logo.png'); ?>">
             </div>
         </div>
 
