@@ -49,7 +49,30 @@ jQuery(document).ready(function($) {
         });
         /* End of Department meta info popup */
      
-
+        /* Department overview stats info1 popup */
+        $('.tab_stats_info_block #dept_stat1_info_popup').click(function(){        
+            $('.tab_stats_info_block .statistics_info_popup_content').hide();       
+            /* Then open the right popup */
+            $('.tab_stats_info_block #dept_stat1_info_popup_content').show();       
+        });
+        /* Department overview stats info2 popup */
+        $('.tab_stats_info_block #dept_stat2_info_popup').click(function(){        
+            $('.tab_stats_info_block .statistics_info_popup_content').hide();       
+            /* Then open the right popup */
+            $('.tab_stats_info_block #dept_stat2_info_popup_content').show();       
+        });
+        /* Department overview stats info3 popup */
+        $('.tab_stats_info_block #dept_stat3_info_popup').click(function(){        
+            $('.tab_stats_info_block .statistics_info_popup_content').hide();       
+            /* Then open the right popup */
+            $('.tab_stats_info_block #dept_stat3_info_popup_content').show();       
+        });
+        /* Close poupup */
+        $('.tab_stats_info_block svg').click(function(){                
+            // Close all popups
+            $('.tab_stats_info_block .statistics_info_popup_content').hide();               
+        });
+        /* End of Department overview stats info popup */
 
 })
 

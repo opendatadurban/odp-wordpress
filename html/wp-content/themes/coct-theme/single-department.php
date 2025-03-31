@@ -20,6 +20,7 @@ $department_statistic_1_icon = $department->field( 'statistic_1_icon' );
 
 $department_statistic_1_title_amount = $department->field( 'statistic_1_title_amount' );
 $department_statistic_1_info_popup = $department->field( 'statistic_1_info_popup' );
+
 $department_statistic_1_sub_title = $department->field( 'statistic_1_sub_title' );
 
 $department_statistic_2_icon = $department->field( 'statistic_2_icon' );
@@ -41,7 +42,7 @@ $dashboard_title = $department->field( 'dashboard_title' );
 $main_default_dashboard_title = $dashboard_title;
 
 $dashboard_author = $department->field( 'dashboard_author' );
-$dashboard_last_update = $department->field( 'dashboard_last_update' );
+$dashboard_last_update = date_create( $department->field( 'post_modified' ) );
 $dashboard_meta_info = $department->field( 'dashboard_meta_info' );
 $dashboard_iframe_url = $department->field( 'dashboard_iframe_url' );
 
@@ -89,7 +90,7 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
     /* Because a department content article was selected these will be overwritten now */
     $dashboard_title = $posted_dc->post_title;    
     $dashboard_author = $posted_dc_pod->field( 'tab_author' );
-    $dashboard_last_update = $posted_dc_pod->field( 'tab_last_updated' );
+    $dashboard_last_update = date_create( $posted_dc_pod->field( 'post_modified' ) );
     $dashboard_meta_info = $posted_dc_pod->field( 'tab_meta_info' );
     $dashboard_iframe_url = $posted_dc_pod->field( 'tab_iframe_url' );
     
@@ -121,23 +122,6 @@ $data_stories_query_posts = $data_stories_query->posts;
 
 ?>
 
-<style>
-
-  /* top blue bar */
-  .top_blue_bar_breadcrumbs span, .top_blue_bar_breadcrumbs a {
-    color: #fff;
-    text-decoration: none;
-  }
-  .top_blue_bar_breadcrumbs a:hover {    
-    text-decoration: underline;
-  }
-  
-  .top_blue_bar_contact_us span, .top_blue_bar_contact_us a {
-    color: #fff;
-    font-weight: 300;
-  }
-
-</style>
 
 <div class="top-page-blue-bar">
     <div></div>
@@ -156,9 +140,9 @@ $data_stories_query_posts = $data_stories_query->posts;
 
       ?>
     </div>
-    <div>
-        <span style="width:300px;">
-        <?php echo get_the_content(); ?>
+    <div class="top_blue_bar_department_content">   
+        <span>
+            <?php echo get_the_content(); ?>
         </span>
     </div>
 </div>
@@ -190,53 +174,67 @@ $data_stories_query_posts = $data_stories_query->posts;
 
 <!-- End of Output main page tabs -->
 
-
 <!-- start of main analysys tab -->
-<div id="economic_analysis_dashboards_tab_content" class="tab_content"  style="border: 0px solid blue;background-color:white;">
+<div id="economic_analysis_dashboards_tab_content" class="tab_content">
 
     <!-- start of tab stats -->
-    <div class="tab_stats_section" style="border: 0px solid red;height:100px;background-color:white;padding:20px 15% 0px 15%;grid-column-gap: 16px;
-    grid-row-gap: 16px;
-    grid-template-rows: auto;
-    grid-template-columns: .75fr 1fr 1fr 1fr;
-    grid-auto-columns: 1fr;
-    display: grid
-;">
+    <div class="tab_stats_section">
         <!-- start of overview statistics  -->  
-        <div style="border:0px solid blue;color:#4c4c4c;">
+        <div class="tab_stats_main_title">
             <h2>
               <?php echo $department_statistics_main_title; ?>
             </h2>
         </div>
-        <div style="border:0px solid blue;">
-            <img style="width: 48px;" src="<?php echo $department_statistic_1_icon["guid"]; ?>">
-            <span style="color: #f90;font-size: 35px;line-height: 130%;">
+        <div class="tab_stats_info_block">
+            <img class="statistic_img_big" src="<?php echo $department_statistic_1_icon["guid"]; ?>">
+            <span class="big_title">
                 <?php echo $department_statistic_1_title_amount; ?>
-            </span>
+                <img id="dept_stat1_info_popup" class="statistic_img" src="<?php echo get_theme_file_uri('/images/statistics_info_icon.png'); ?>">
+            </span>            
             <br>
-            <span style="color: #afaeba;text-align: center;text-transform: uppercase;font-size: 12px;">
+            <span class="sub_title">
                 <?php echo $department_statistic_1_sub_title; ?>
             </span>
+            <div id="dept_stat1_info_popup_content" class="statistics_info_popup_content">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="CurrentColor" d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"></path>
+                </svg>
+                <pre><?php echo htmlspecialchars_decode($department_statistic_1_info_popup); ?></pre>
+            </div>
         </div>
-        <div style="border:0px solid blue;">
-              <img style="width: 48px;" src="<?php echo $department_statistic_2_icon["guid"]; ?>">
-              <span style="color: #f90;font-size: 35px;line-height: 130%;">
+        <div class="tab_stats_info_block">
+              <img class="statistic_img_big" src="<?php echo $department_statistic_2_icon["guid"]; ?>">
+              <span class="big_title">
                   <?php echo $department_statistic_2_title_amount; ?>
+                  <img id="dept_stat2_info_popup" class="statistic_img" src="<?php echo get_theme_file_uri('/images/statistics_info_icon.png'); ?>">
               </span>
               <br>
-              <span style="color: #afaeba;text-align: center;text-transform: uppercase;font-size: 12px;">
+              <span class="sub_title">
                   <?php echo $department_statistic_2_sub_title; ?>
               </span>
+              <div id="dept_stat2_info_popup_content" class="statistics_info_popup_content">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="CurrentColor" d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"></path>
+                </svg>
+                <pre><?php echo htmlspecialchars_decode($department_statistic_2_info_popup); ?></pre>
+            </div>
         </div>
-        <div style="border:0px solid blue;">
-              <img style="width: 48px;" src="<?php echo $department_statistic_3_icon["guid"]; ?>">
-              <span style="color: #f90;font-size: 35px;line-height: 130%;">
+        <div class="tab_stats_info_block">
+            <img class="statistic_img_big" src="<?php echo $department_statistic_3_icon["guid"]; ?>">
+              <span class="big_title">
                   <?php echo $department_statistic_3_title_amount; ?>
+                  <img id="dept_stat3_info_popup" class="statistic_img" src="<?php echo get_theme_file_uri('/images/statistics_info_icon.png'); ?>">
               </span>
               <br>
-              <span style="color: #afaeba;text-align: center;text-transform: uppercase;font-size: 12px;">
+              <span class="sub_title">
                   <?php echo $department_statistic_3_sub_title; ?>
               </span>
+              <div id="dept_stat3_info_popup_content" class="statistics_info_popup_content">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="CurrentColor" d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"></path>
+                </svg>
+                <pre><?php echo htmlspecialchars_decode($department_statistic_3_info_popup); ?></pre>
+            </div>
         </div>
         <!-- end of overview statistics -->
         
@@ -244,66 +242,9 @@ $data_stories_query_posts = $data_stories_query->posts;
     <!-- end of tab stats -->
 
     <style>
-
-        .tab-content-container {
-          border: 1px solid #ccc; 
-          height:600px;
-          background-color:#ccc; 
-          display:grid;
-          grid-template-columns: .75fr 3.25fr;    
-        }
-
-        .tab_content_sidebar {
-          border: 1px solid #ccc;
-          background-color:white;
-        }
-
-        /* Start of vertical department content data tabs  */
-        .department_content_left_vertical_tab_main {
-          list-style:none;          
-          /*border-bottom:4px solid #ccc;*/
-          width:80%;    
-          line-height: 130%;      
-          padding: 15px 0px;;
-        }
-        .department_content_left_vertical_tab_main a {
-          font-weight: 300;          
-          font-size:18px;
-          color: #b3b0b0;
-          text-decoration: none;          
-        }
-        .department_content_left_vertical_tab_sub {
-          font-weight: 200;
-          font-size:16px;
-          border-bottom:0px solid #ccc;
-          width:80%;          
-          padding: 15px;
-        }
-        .department_content_left_vertical_tab_sub a {
-          font-weight: 300;          
-          font-size:15px;
-          color: #4c4c4c;
-          text-decoration: none;
-        }
-        /* End of vertical department content data tabs  */
-
-        /* Start of main content section for iframe */
-
-        .tab_content_main {
-          border: 0px solid grey;
-          background-color: white;"
-        }
-        .tab_content_main_department_content {
-          display:grid; 
-          grid-template-columns: 4fr 1fr 1fr 1fr; 
-          border-bottom: 1px solid #ccc; 
-          border-left: 1px solid #ccc; 
-          align-items:center;
-          height: 55px;
-        }
-
-        /* End of main content section for iframe */
-
+/*
+left_vertical_tab_current_tab_active
+*/
     </style>
 
     <!-- start of tab container -->
@@ -312,7 +253,6 @@ $data_stories_query_posts = $data_stories_query->posts;
       <!-- start of tab sidebar -->
       <div class="tab_content_sidebar">
         <ul class="department_content_left_vertical_tabs">
-
 
             <!-- main default tab as set in department page -->
             <li class="department_content_left_vertical_tab_main">
@@ -347,29 +287,26 @@ $data_stories_query_posts = $data_stories_query->posts;
       <!-- First tab: Dashboards -->
       <!-- start of tab iframe container -->
       <div class="tab_content_main">
-          
-          <!-- start of tab iframe headings -->
+
+          <!-- start of tab title, author, last update headings -->
           <div class="tab_content_main_department_content">
 
-              <div style="color:#4c4c4c;">
-                <h2 style="padding-left:20px;"><?php echo $dashboard_title; ?></h2>              
+              <div class="dashboard_title">
+                <h2><?php echo $dashboard_title; ?></h2>              
               </div>
 
-              <div>
-                <span style="color:#afaeba">AUTHOR:</span>
-                <span style="color:#4c4c4c;font-weight: 500;"><?php echo $dashboard_author; ?></span>
+              <div class="dashboard_author">
+                <span>AUTHOR:</span>
+                <span><?php echo $dashboard_author; ?></span>
               </div>
 
-              <div>
-                <span style="color:#afaeba">LAST UPDATE:</span>
-                <span style="color:#4c4c4c;font-weight: 500;"><?php echo $dashboard_last_update; ?></span>
+              <div class="dashboard_last_update">
+                <span>LAST UPDATE:</span>
+                <span><?php echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
               </div>
 
-              <div>
-                <a id="meta_info_popup_show" href="#" style="color:#4c4c4c;cursor: pointer;text-decoration: underline;font-weight: 500;">Meta Info</a>
-                <!--
-                <div>Popup content: <?php // echo $dashboard_meta_info; ?>
-                -->
+              <div class="dashboard_meta_info_popup_button">
+                <a id="meta_info_popup_show" href="#">Meta Info</a>          
               </div>
 
               <div id="meta_info_popup_content">
@@ -380,7 +317,7 @@ $data_stories_query_posts = $data_stories_query->posts;
               </div>
 
           </div>
-          <!-- end of iframe headings -->
+          <!-- end of tab title, author, last update headings  -->
 
           <!-- start of tab iframe -->
           <div>
@@ -422,7 +359,7 @@ $data_stories_query_posts = $data_stories_query->posts;
                 foreach($data_stories_query_posts as $data_story){ 
                   $data_story_pod = pods( 'department_data_stor', $data_story->ID );
                   $data_story_author = $data_story_pod->field( 'data_story_author' );
-                  $data_story_published_date = $data_story_pod->field( 'data_story_published_date' );
+                  $data_story_published_date = date_create( $data_story_pod->field( 'post_modified' ) );
                   $data_story_featured_image = $data_story_pod->field( 'data_story_featured_image' );
                   $data_story_url = get_permalink( $data_story->ID );
 
@@ -459,7 +396,7 @@ $data_stories_query_posts = $data_stories_query->posts;
                           <span>AUTHOR</span>
                         </div>
                         <div class="data_story_item_published">
-                          <?php echo $data_story_published_date; ?>
+                          <?php echo date_format($data_story_published_date,"Y-m-d"); ?>
                           <br>
                           <span>PUBLISHED</span>
                         </div>
