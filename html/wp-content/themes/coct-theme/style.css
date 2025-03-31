@@ -354,30 +354,36 @@ body {
   }
 
   .tab_content_main {    
-    background-color: white;"
-  }
-  
+    background-color: white;
+  }  
 
   /* End of department tab main content  */
 
   /* Start of vertical department content data tabs  */
   .department_content_left_vertical_tab_main {
     list-style:none;          
-    /*border-bottom:4px solid #ccc;*/
+    border-bottom:2px solid #ccc;
     width:80%;    
     line-height: 130%;      
     padding: 15px 0px;
   }
+  .department_content_left_vertical_tabs li:hover {    
+    border-bottom:4px solid #4c4c4c;
+    cursor: pointer;
+  }
+  .department_content_left_vertical_tabs li:hover a {    
+    font-weight: bold;
+  }
   .department_content_left_vertical_tab_main a {
     font-weight: 300;          
     font-size:18px;
-    color: #b3b0b0;
+    color: #4c4c4c;
     text-decoration: none;          
   }
   .department_content_left_vertical_tab_sub {
     font-weight: 200;
     font-size:16px;
-    border-bottom:0px solid #ccc;
+    border-bottom:0px solid #4c4c4c;
     width:80%;          
     padding: 15px;
   }
@@ -388,10 +394,8 @@ body {
     text-decoration: none;
   }
   .left_vertical_tab_current_tab_active {    
-    border-bottom: 4px solid #4c4c4c;
-    font-weight: 700;
-    border-bottom-style: solid;
-    width: 100%;    
+    border-bottom:4px solid #4c4c4c;
+    font-weight: bold;
   }
   /* End of vertical department content data tabs  */
 
@@ -503,7 +507,7 @@ body {
 }
 .data_story_link {
   /*height: 250px;
-  width: 400px;        */
+  width: 400px;*/
 }      
 .data_story_image_wrapper {  
   position: relative;      

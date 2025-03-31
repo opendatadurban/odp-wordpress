@@ -35,6 +35,7 @@ $department_statistic_3_sub_title = $department->field( 'statistic_3_sub_title' 
 
 
 $department_datasets_iframe_url = $department->field( 'datasets_iframe_url' );
+$department_datasets_iframe_height = $department->field( 'datasets_iframe_url' );
 
 /* Default dashboard fields */
 /* If a department content is selected these will be overwritten below */
@@ -45,6 +46,7 @@ $dashboard_author = $department->field( 'dashboard_author' );
 $dashboard_last_update = date_create( $department->field( 'post_modified' ) );
 $dashboard_meta_info = $department->field( 'dashboard_meta_info' );
 $dashboard_iframe_url = $department->field( 'dashboard_iframe_url' );
+$dashboard_iframe_height = $department->field( 'dashboard_iframe_height' );
 
 /* Get data for vertical side tabs / list items (department content)  */
 /* Get department category, then get department content */
@@ -54,8 +56,9 @@ $terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
 //Now get the department content by department category to which the department page belongs
 $department_content_query_args = array(
   'post_type'=> 'department_content',
-  'department_category'    => $terms_string,
-
+  'department_category'    => $terms_string,  
+  'meta_key' => 'tab_order_number',
+  'orderby' => array( 'meta_value_num' => 'ASC' ),
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
@@ -93,6 +96,9 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
     $dashboard_last_update = date_create( $posted_dc_pod->field( 'post_modified' ) );
     $dashboard_meta_info = $posted_dc_pod->field( 'tab_meta_info' );
     $dashboard_iframe_url = $posted_dc_pod->field( 'tab_iframe_url' );
+    $dashboard_iframe_height = $posted_dc_pod->field( 'tab_iframe_height' );
+
+    //echo "iframe height ".$dashboard_iframe_height;
     
 }else {
   //$dp_id = 0;
@@ -254,27 +260,45 @@ left_vertical_tab_current_tab_active
       <div class="tab_content_sidebar">
         <ul class="department_content_left_vertical_tabs">
 
+            <!-- Vertical tabs for departement (department content) -->
+            <?php
+            // If no sub tab is selected, give main tab a bold and underline
+            $current_vertical_tab_class = "";
+            $bold_or_not = "";
+            if ( !isset( $_GET['dc'] ) ) {
+                $current_vertical_tab_class = "left_vertical_tab_current_tab_active";
+                $bold_or_not = "font-weight: bold;";
+            }
+            ?>
             <!-- main default tab as set in department page -->
-            <li class="department_content_left_vertical_tab_main">
-                <a href="#"><?php echo $main_default_dashboard_title; ?></a>
+            <li class="department_content_left_vertical_tab_main <?php echo $current_vertical_tab_class; ?>">
+                <a style="<?php echo $bold_or_not; ?>" href="<?php echo $page_link; ?>"><?php echo $main_default_dashboard_title; ?></a>
             </li>
             <?php
                 //Loop through department content (vertical tabs) for this department page & Category)
                 foreach($department_content_posts as $dcp) {                  
                   $dcp_pod = pods( 'department_content', $dcp->ID );
                   $dcp_is_main_tab = $dcp_pod->field( 'is_main_tab' );
-                  
+                  $current_vertical_tab_class = "";
+                  $bold_or_not = "";
+
+                  // Give the current tab a class with a underline & bold style
+                  if ( isset( $_GET['dc'] ) && $dcp->post_name == $_GET['dc'] ) {
+                      $current_vertical_tab_class = "left_vertical_tab_current_tab_active";
+                      $bold_or_not = "font-weight: bold;";
+                  }
+                  /* Display vertical tabs */
                   if( @$dcp_is_main_tab[0] ){                    
                     ?>
-                      <li class="department_content_left_vertical_tab_main">
+                      <li class="department_content_left_vertical_tab_main <?php echo $current_vertical_tab_class; ?>">
                     <?php
                   }else{
                     ?>
-                      <li class="department_content_left_vertical_tab_sub">
+                      <li class="department_content_left_vertical_tab_sub <?php echo $current_vertical_tab_class; ?>">
                     <?php
                   }                  
                   ?>       
-                    <a href="<?php echo $page_link."?dc=".$dcp->post_name; ?>"><?php echo $dcp->post_title; ?></a>
+                    <a style="<?php echo $bold_or_not; ?>" href="<?php echo $page_link."?dc=".$dcp->post_name; ?>"><?php echo $dcp->post_title; ?></a>
                   </li>
                   <?php                  
                 }  
@@ -320,20 +344,9 @@ left_vertical_tab_current_tab_active
           <!-- end of tab title, author, last update headings  -->
 
           <!-- start of tab iframe -->
-          <div>
-      
-            <iframe id="iframe1" src="<?php echo $dashboard_iframe_url; ?>" width="100%" height="1500px" frameborder="0"></iframe>
-              
-                <script>
-                // Selecting the iframe element
-                var iframe = document.getElementById("iframe1");
-                
-                // Adjusting the iframe height onload event
-                iframe.onload = function(){
-                    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-                }
-              </script>
-
+          <div>      
+            <iframe id="dashboard_iframe" src="<?php echo $dashboard_iframe_url; ?>" width="100%" height="<?php echo $dashboard_iframe_height;?>px" frameborder="0">
+            </iframe>              
           </div>
 
         </div>
@@ -426,4 +439,4 @@ left_vertical_tab_current_tab_active
 </div>
     
 
-<?php //get_footer(); 
+<?php get_footer(); 

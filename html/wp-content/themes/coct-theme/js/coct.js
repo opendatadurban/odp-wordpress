@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
             // Close all popups
             $('.tab_stats_info_block .statistics_info_popup_content').hide();               
         });
-        /* End of Department overview stats info popup */
+        /* End of Department overview stats info popup */     
 
 })
 
