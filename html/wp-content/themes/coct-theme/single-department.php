@@ -97,8 +97,6 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
     $dashboard_meta_info = $posted_dc_pod->field( 'tab_meta_info' );
     $dashboard_iframe_url = $posted_dc_pod->field( 'tab_iframe_url' );
     $dashboard_iframe_height = $posted_dc_pod->field( 'tab_iframe_height' );
-
-    //echo "iframe height ".$dashboard_iframe_height;
     
 }else {
   //$dp_id = 0;
@@ -110,7 +108,7 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
 $data_stories_query_args = array(
   'post_type'=> 'department_data_stor',
   'department_category'    => $terms_string,
-
+  'orderby' => 'publish_date',
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
@@ -124,7 +122,6 @@ $data_stories_query_args = array(
 );
 $data_stories_query = new WP_Query( $data_stories_query_args );
 $data_stories_query_posts = $data_stories_query->posts;
-
 
 ?>
 
@@ -325,12 +322,12 @@ left_vertical_tab_current_tab_active
               </div>
 
               <div class="dashboard_last_update">
-                <span>LAST UPDATE:</span>
-                <span><?php echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
+                <span><!--LAST UPDATE:--></span>
+                <span><?php //echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
               </div>
 
               <div class="dashboard_meta_info_popup_button">
-                <a id="meta_info_popup_show" href="#">Meta Info</a>          
+                <a id="meta_info_popup_show" href="#">About this data</a>          
               </div>
 
               <div id="meta_info_popup_content">

@@ -7,9 +7,10 @@
 <?php get_header(); ?>
 
 <div id="home-banner">
-  <div>
+  <div id="search_box">
     <form action="/search" class="">
-        <input class="search-input-2 w-input" maxlength="256" name="query" placeholder="Search " type="search" id="search" required="">
+        <!--<input class="search-input-2 w-input" maxlength="256" name="query" placeholder="Search " type="search" id="search" required="">-->
+        <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
         <!--<input type="submit" class="search-button-2 w-button" value="Search">-->
     </form>
   </div>

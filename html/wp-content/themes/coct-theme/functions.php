@@ -50,6 +50,14 @@ register_nav_menus(
     )
 );
 
+/* Add favicon to site header */
+function coct_add_favicon(){ ?>
+    <!-- Custom Favicons -->
+    <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri();?>/images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/images/apple-touch-icon.png">
+    <?php 
+}
+add_action('wp_head','coct_add_favicon');
 
 
 
