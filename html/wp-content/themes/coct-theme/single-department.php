@@ -276,6 +276,7 @@ left_vertical_tab_current_tab_active
                 foreach($department_content_posts as $dcp) {                  
                   $dcp_pod = pods( 'department_content', $dcp->ID );
                   $dcp_is_main_tab = $dcp_pod->field( 'is_main_tab' );
+                  $tab_iframe_url = $dcp_pod->field( 'tab_iframe_url' );
                   $current_vertical_tab_class = "";
                   $bold_or_not = "";
 
@@ -293,11 +294,26 @@ left_vertical_tab_current_tab_active
                     ?>
                       <li class="department_content_left_vertical_tab_sub <?php echo $current_vertical_tab_class; ?>">
                     <?php
-                  }                  
-                  ?>       
-                    <a style="<?php echo $bold_or_not; ?>" href="<?php echo $page_link."?dc=".$dcp->post_name; ?>"><?php echo $dcp->post_title; ?></a>
+                  } 
+                  //If the tab has a iframe, give it a link. 
+                  //If not, do not give it a link
+                  if( isset($tab_iframe_url) && !empty($tab_iframe_url) ){      
+                      ?>       
+                      <a style="<?php echo $bold_or_not; ?>" href="<?php echo $page_link."?dc=".$dcp->post_name; ?>">
+                        <?php echo $dcp->post_title; ?>
+                      </a>                    
+                      <?php    
+                  } else {
+                    ?>       
+                    <span>
+                      <?php echo $dcp->post_title; ?>
+                    </span>
+                    <?php    
+                  }
+                  ?>
                   </li>
-                  <?php                  
+                  <?php
+                                  
                 }  
             ?>
         </ul>

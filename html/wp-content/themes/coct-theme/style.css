@@ -219,7 +219,7 @@ body {
 @media only screen and (max-width:800px)  { /* smartphones, Android phones, landscape iPhone */ 
 
     #home_sub_footer {
-        grid-template-columns: 1fr;    
+        grid-template-columns: 1fr;   
     }
 
     #home_sub_footer .logo {
@@ -450,18 +450,26 @@ body {
     width:80%;    
     line-height: 130%;      
     padding: 15px 0px;
+    
   }
-  .department_content_left_vertical_tabs li:hover {    
-    border-bottom:4px solid #4c4c4c;
-    cursor: pointer;
+  .department_content_left_vertical_tabs li:hover  {    
+    border-bottom:4px solid #4c4c4c; 
   }
   .department_content_left_vertical_tabs li:hover a {    
-    font-weight: bold;
+    font-weight: bold;   
+    color: #4c4c4c
   }
   .department_content_left_vertical_tab_main a {
     font-weight: 300;          
     font-size:18px;
-    color: #4c4c4c;
+    color: #b3b0b0;
+    text-decoration: none;          
+    cursor: pointer;
+  }
+  .department_content_left_vertical_tab_main span {
+    font-weight: 300;          
+    font-size:18px;
+    color: #b3b0b0;
     text-decoration: none;          
   }
   .department_content_left_vertical_tab_sub {
