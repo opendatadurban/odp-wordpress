@@ -34,7 +34,7 @@ $menu_name = 'primary-menu';
 
 <body <?php body_class(); ?>>
 <header id="site-header">        
-    <div style="width: 50%; border: 0px solid black;">
+    <div class="logo">
         <a href="<?php echo home_url(); ?>">
             <img src="<?php echo get_theme_file_uri('/images/city-of-cape-town-logo.png'); ?>">        
         </a>

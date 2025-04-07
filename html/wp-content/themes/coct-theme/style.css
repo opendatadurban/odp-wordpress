@@ -15,6 +15,7 @@
 body {
     margin: 0px;
     background-color: #282c2e;
+    display: grid;
 }
 
 /* - Start of Site header - */
@@ -26,6 +27,14 @@ body {
     align-items: center;
     padding: 20px;
     margin: 0px;
+    /*width: 100%;*/
+}
+#site-header .logo {
+    width: 50%; 
+    padding-left: 3em;
+}
+#site-header .logo img {
+    height: 50px;
 }
 #site-header .menu {    
     width: 100%;
@@ -52,7 +61,7 @@ body {
 /* - End of site header - */
 
 /* - Start of Home page styling - */
-#home-banner {
+#home_banner {
     /*background-image:
         linear-gradient(to right, rgba(0,0,0, 0), #0097c5),
         url('/wp-content/themes/coct-theme/images/city_of_cape_town_hero_image.jpg');*/
@@ -64,90 +73,136 @@ body {
     background-repeat: no-repeat;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: .95fr 3fr 2.5fr .45fr;
     text-align: center;
     align-items: center;
     height: 300px;
     width: 100%;
 
 }
-#home-banner div {
+#home_search_box {
+    width: 95%;   
+    padding-left: 20px;
+    /*margin-left: 25px;*/
+}
+
+#home_banner_title {
     color: white;
     margin: 0 auto;
     font-size: 22px;
     font-weight: 400;
+    text-align: left;
+    padding-left: 5px;
+    width: 100%;
 }
 
-#search_box {
-    width: 80%;   
+
+@media only screen and (max-width:595px)  { /* smartphones, Android phones, landscape iPhone */ 
+
+    #home_banner {
+        grid-template-columns: 1fr;    
+    }
+    #home_search_box {        
+        margin-top: 8%;
+        width: 90vw;        
+    }    
+    #home_banner_title {
+        margin-top: -10%;
+        width: 90vw;
+    }
+
 }
+
 
 /* - End of Home page styling - */
 
 /* - Start of Home page links - */
 
-#home-page-links {
+#home_page_links {
     background-color:white;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: .65fr 1fr 1fr 1fr 1fr;
     text-align: center;
     align-items: center;
-    padding: 1em 3em 1em 3em;
+    padding: 35px 50px 55px 50px;
 }
 
-#home-page-links .item {
+#home_page_links .item {
     margin: 1rem;
-    padding: 1rem;
-    font-size: 1rem;
+    padding: 0px 5px 15px 5px;
+    font-size: 16px;
     text-align: center;
     align-items: center;
     align-content: center;
-    height: 220px;
+    height: 155px;
     border: 2px solid transparent;
+    width: 75%;
 }
-#home-page-links .item:hover {
+#home_page_links .item:hover {
     border: 2px solid #007399;
 }
 
-#home-page-links a {
+#home_page_links a {
     text-decoration: none;
 }
 
-#home-page-links img {
+#home_page_links img {
     width: 50px;
-    padding: 2rem;
+    padding: 20px;
 }
 
-#home-page-links span {
+#home_page_links span {
     color: #0079c1;
     text-align: center;
     font-size: 16px;
-    padding: 2rem;
+}
+
+@media only screen and (max-width:800px)  { /* smartphones, Android phones, landscape iPhone */ 
+
+    #home_page_links {        
+        grid-template-columns: 1fr;        
+    }
+    #home_page_links .item {
+        width: 45%;
+        margin: 0 auto;
+    }
+
 }
 
 /* - End of Home page links - */
 
 /* - Start of home page sub footer - */
 
-#home-sub-footer {
+#home_sub_footer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr .5fr;
     text-align: center;
     align-items: center;
     padding: 2em;
     background-color: #393d40;
 }
-#home-sub-footer .item {
-    padding: 2em;
+
+#home_sub_footer .logo {
+    position: relative;
+    bottom: -58px;
+    text-align: right;
 }
-#home-sub-footer h2{
+#home_sub_footer img {
+    width: 200px;
+}
+#home_sub_footer .item {
+    padding: 2em;
+    width: 75%;
+}
+#home_sub_footer h2 {
     color: #dfe2e4;
     margin-top: 24px;
     margin-bottom: 28px;
     font-size: 30px;
     text-align: left;
+    font-weight: 200;
 }
-#home-sub-footer .sub-footer-block{
+#home_sub_footer .sub_footer_block {
     border-top: 1px solid #4e5255;
     border-bottom: 1px solid #4e5255;
     border-radius: 1px;
@@ -155,10 +210,28 @@ body {
     padding-bottom: 15px;
     text-align: left;
 }
-#home-sub-footer .sub-footer-block a {
+#home_sub_footer .sub_footer_block a {
     color: #dfe2e4;
     font-size: 16px;
     text-decoration: none;
+}
+
+@media only screen and (max-width:800px)  { /* smartphones, Android phones, landscape iPhone */ 
+
+    #home_sub_footer {
+        grid-template-columns: 1fr;    
+    }
+
+    #home_sub_footer .logo {
+        text-align: left;
+        margin: -10px 0px 60px 0px;        
+    }
+    
+    /*#home_page_links .item {
+        width: 45%;
+        margin: 0 auto;
+    }*/
+
 }
 
 
@@ -166,29 +239,28 @@ body {
 
 /* - Start of Site bottom footer - */
 
-#site-main-footer {
+#site_main_footer {
     grid-column-gap: 34px;
     grid-row-gap: 34px;
     justify-content: center;
     align-items: flex-start;
     display: flex;
     background-color: #282c2e;
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 2em;    
 }
 
-#site-main-footer a {
+#site_main_footer a {
     color: #929496;
     border-radius: 5px;
     padding: 15px;
     font-size: 16px;
     text-decoration: none;
 }
-#site-main-footer a:hover {
+#site_main_footer a:hover {
     color: #fff;
     background-color: #007399;
 }
-#site-bottom-footer {
+#site_bottom_footer {
     display: grid;
     grid-template-columns: 1fr;
     text-align: center;
@@ -197,7 +269,7 @@ body {
     padding-top: 0em;
     padding-bottom: 2em;
 }
-#site-bottom-footer span {
+#site_bottom_footer span {
     color: #929496;
     text-align: center;
     max-width: none;

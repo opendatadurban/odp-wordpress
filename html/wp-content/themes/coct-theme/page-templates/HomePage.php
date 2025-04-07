@@ -6,28 +6,35 @@
 
 <?php get_header(); ?>
 
-<div id="home-banner">
-  <div id="search_box">
-    <form action="/search" class="">
-        <!--<input class="search-input-2 w-input" maxlength="256" name="query" placeholder="Search " type="search" id="search" required="">-->
-        <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
-        <!--<input type="submit" class="search-button-2 w-button" value="Search">-->
-    </form>
-  </div>
-  <div>Find out all about the City of Cape Town</div>  
+<div id="home_banner">
+    <div></div>
+    <div id="home_search_box">
+      <form action="/search" class="">
+          <!--<input class="search-input-2 w-input" maxlength="256" name="query" placeholder="Search " type="search" id="search" required="">-->
+          <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
+          <!--<input type="submit" class="search-button-2 w-button" value="Search">-->
+      </form>
+    </div>
+    <div id="home_banner_title">
+      Find out all about the City of Cape Town
+    </div>  
+    <div></div>
 </div>
 
-<div id="home-page-links">
+<div id="home_page_links">
+  <div></div>
   <a href="<?php echo home_url()."/department/economic-analysis"; ?>" class="item">
-    <img src="<?php echo get_theme_file_uri('/images/economic_analysis_icon.png'); ?>">
-    <br>
-    <span>Economic Analysis</span>
+      <img src="<?php echo get_theme_file_uri('/images/economic_analysis_icon.png'); ?>">
+      <br>
+      <span>Economic Analysis</span>
   </a>
   <a href="<?php echo home_url()."/department/research"; ?>" class="item">
-    <img src="<?php echo get_theme_file_uri('/images/research_icon.png'); ?>">
-    <br>
-    <span>Research</span>
-    </a>
+      <img src="<?php echo get_theme_file_uri('/images/research_icon.png'); ?>">
+      <br>
+      <span>Research</span>
+  </a>
+  <div></div>
+  <div></div>  
 </div>
 
    
