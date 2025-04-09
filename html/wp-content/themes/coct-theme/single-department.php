@@ -126,7 +126,7 @@ $data_stories_query_posts = $data_stories_query->posts;
 ?>
 
 
-<div class="top-page-blue-bar">
+<div class="top_page_blue_bar">
     <div></div>
     <div class="top_blue_bar_breadcrumbs">   
       <a href="<?php echo home_url(); ?>"><span>Home</span></a>
@@ -152,17 +152,17 @@ $data_stories_query_posts = $data_stories_query->posts;
 
 <!-- Output main page tabs -->
 
-<div class="top-page-blue-bar-with-tab-buttons">
+<div class="top_page_blue_bar_with_tab_buttons">
   <div></div>
     
-  <div class="tab-button-container">
+  <div class="tab_button_container">
       <div id="economic_analysis_dashboards_tab" class="tab_button">
           <a href="#">Dashboards</a>
       </div>
-      <div id="economic_analysis_datastories_tab" class="tab_button tab-inactive">
+      <div id="economic_analysis_datastories_tab" class="tab_button tab_inactive">
           <a href="#">Data Stories</a>
       </div>
-      <div id="economic_analysis_datasets_tab" class="tab_button tab-inactive">
+      <div id="economic_analysis_datasets_tab" class="tab_button tab_inactive">
           <a href="#">Datasets</a>
       </div>
   </div>  
@@ -251,7 +251,7 @@ left_vertical_tab_current_tab_active
     </style>
 
     <!-- start of tab container -->
-    <div class="tab-content-container">
+    <div class="tab_content_container">
   
       <!-- start of tab sidebar -->
       <div class="tab_content_sidebar">
@@ -331,21 +331,24 @@ left_vertical_tab_current_tab_active
               <div class="dashboard_title">
                 <h2><?php echo $dashboard_title; ?></h2>              
               </div>
+              
+              <div class="dashboard_author_etc_container">
 
-              <div class="dashboard_author">
-                <span>AUTHOR:</span>
-                <span><?php echo $dashboard_author; ?></span>
+                <div class="dashboard_author">
+                  <span>AUTHOR:</span>
+                  <span><?php echo $dashboard_author; ?></span>
+                </div>
+
+                <div class="dashboard_last_update">
+                  <span><!--LAST UPDATE:--></span>
+                  <span><?php //echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
+                </div>
+
+                <div class="dashboard_meta_info_popup_button">
+                  <a id="meta_info_popup_show" href="#">About this data</a>          
+                </div>
+                
               </div>
-
-              <div class="dashboard_last_update">
-                <span><!--LAST UPDATE:--></span>
-                <span><?php //echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
-              </div>
-
-              <div class="dashboard_meta_info_popup_button">
-                <a id="meta_info_popup_show" href="#">About this data</a>          
-              </div>
-
               <div id="meta_info_popup_content">
                   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
                     <path fill="CurrentColor" d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"></path>

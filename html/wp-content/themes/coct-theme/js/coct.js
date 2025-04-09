@@ -1,20 +1,20 @@
 
-/* Tabs */
 
 
 
+/* Initialise jQuery on Page ready */
 jQuery(document).ready(function($) {
         
     
         /* Department Page Show / Hide main tabs */
-        $('.tab-button-container div').click(function(){
+        $('.tab_button_container div').click(function(){
 
             var t = $(this).attr('id');
 
-            if($(this).hasClass('tab-inactive')){ //this is the start of our condition 
+            if($(this).hasClass('tab_inactive')){ //this is the start of our condition 
 
-                $('.tab-button-container div').addClass('tab-inactive'); 
-                $(this).removeClass('tab-inactive');
+                $('.tab_button_container div').addClass('tab_inactive'); 
+                $(this).removeClass('tab_inactive');
         
                 $('.tab_content').hide();
                 $('.tab_content').css('visibility','hidden');
