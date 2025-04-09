@@ -7,8 +7,15 @@
     Description: Custom theme for COCT
 */
 
+@font-face {
+	font-family: 'Avenir_Next_Cyr_Medium';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Avenir_Next_Cyr_Medium'), url('fonts/Avenir_Next_Cyr_Medium.ttf');
+}
+
 * {
-    font-family: Avenir, sans-serif;
+    font-family: "Avenir_Next_Cyr_Medium", sans-serif;
     /*font-family: Verdana, Geneva, Tahoma, sans-serif;*/
 }
 
