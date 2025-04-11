@@ -56,6 +56,7 @@ $dept_cat_terms_string = join(', ', wp_list_pluck($dept_cat_term_obj_list, 'name
 //Now get the department content by department category to which the department page belongs
 $department_content_query_args = array(
   'post_type'=> 'department_content',
+  'post_status'     => 'publish',
   'department_category'    => $dept_cat_terms_string,  
   'meta_key' => 'tab_order_number',
   'orderby' => array( 'meta_value_num' => 'ASC' ),
@@ -109,6 +110,7 @@ $data_stories_query_args = array(
   'post_type'=> 'department_data_stor',
   'department_category'    => $dept_cat_terms_string,
   'orderby' => 'publish_date',
+  'post_status'     => 'publish',
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',

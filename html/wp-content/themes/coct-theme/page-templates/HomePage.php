@@ -13,6 +13,7 @@ get_header();
 $department_query_args = array(
   'post_type'=> 'department',
   'order'    => 'ASC',
+  'post_status'     => 'publish',
   'posts_per_page'   => -1,
 );
 $department_query = new WP_Query( $department_query_args );
