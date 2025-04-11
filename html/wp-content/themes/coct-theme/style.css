@@ -137,11 +137,11 @@ body {
 
 #home_page_links {
     background-color:white;
-    display: grid;
-    grid-template-columns: .65fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    /*grid-template-columns: .65fr 1fr 1fr 1fr 1fr;*/
     text-align: center;
     align-items: center;
-    padding: 35px 50px 55px 50px;
+    padding: 35px 50px 55px 180px;
 }
 
 #home_page_links .item {
@@ -151,9 +151,9 @@ body {
     text-align: center;
     align-items: center;
     align-content: center;
-    height: 155px;
+    height: 169px;
     border: 2px solid transparent;
-    width: 75%;
+    width: 290px;
 }
 #home_page_links .item:hover {
     border: 2px solid #007399;
@@ -388,7 +388,7 @@ body {
 /* End of Department page top blue bar & tab buttons styling*/
 
 /* Start of Department page dashboard overview statistics */
-#economic_analysis_dashboards_tab_content {    
+#single_department_dashboards_tab_content {    
     background-color:white;
 }
 
@@ -647,7 +647,7 @@ body {
 
 /* Data stories tabs  */
 
-#economic_analysis_datastories_tab_content {
+#single_department_datastories_tab_content {
   display:grid; 
   grid-template-columns: .75fr 6fr;
   border: 0px solid blue;
@@ -754,7 +754,7 @@ body {
   font-weight: 500;
 }
 @media only screen and (max-width:1110px)  { /* smartphones, Android phones, landscape iPhone */ 
-    #economic_analysis_datastories_tab_content {    
+    #single_department_datastories_tab_content {    
         display: flex;
         padding: 0px 0px 20px 25px;
     }    
@@ -780,8 +780,8 @@ body {
 
 */
 
-/* Datasets main tab */
-#economic_analysis_datasets_tab_content {
+/* Department page Datasets main tab */
+#single_department_datasets_tab_content {
   border: 0px solid blue;
   height: 1500px;
   background-color: white;
@@ -789,7 +789,7 @@ body {
 
 
 
-/* End Data stories tabs */
+/* End of Department page Data stories tabs */
 
 /* Start of single data story page */
 

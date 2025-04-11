@@ -50,20 +50,20 @@ $dashboard_iframe_height = $department->field( 'dashboard_iframe_height' );
 
 /* Get data for vertical side tabs / list items (department content)  */
 /* Get department category, then get department content */
-$term_obj_list = get_the_terms( get_the_id(), 'department_category' );
-$terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+$dept_cat_term_obj_list = get_the_terms( get_the_id(), 'department_category' );
+$dept_cat_terms_string = join(', ', wp_list_pluck($dept_cat_term_obj_list, 'name'));
 
 //Now get the department content by department category to which the department page belongs
 $department_content_query_args = array(
   'post_type'=> 'department_content',
-  'department_category'    => $terms_string,  
+  'department_category'    => $dept_cat_terms_string,  
   'meta_key' => 'tab_order_number',
   'orderby' => array( 'meta_value_num' => 'ASC' ),
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
         'field' => 'slug',
-        'terms' => $terms_string,
+        'terms' => $dept_cat_terms_string,
         ),
   ),
 
@@ -107,13 +107,13 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
 /* Content for data stories tab */
 $data_stories_query_args = array(
   'post_type'=> 'department_data_stor',
-  'department_category'    => $terms_string,
+  'department_category'    => $dept_cat_terms_string,
   'orderby' => 'publish_date',
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
         'field' => 'slug',
-        'terms' => $terms_string,
+        'terms' => $dept_cat_terms_string,
         ),
   ),
 
@@ -156,13 +156,13 @@ $data_stories_query_posts = $data_stories_query->posts;
   <div></div>
     
   <div class="tab_button_container">
-      <div id="economic_analysis_dashboards_tab" class="tab_button">
+      <div id="single_department_dashboards_tab" class="tab_button">
           <a href="#">Dashboards</a>
       </div>
-      <div id="economic_analysis_datastories_tab" class="tab_button tab_inactive">
+      <div id="single_department_datastories_tab" class="tab_button tab_inactive">
           <a href="#">Data Stories</a>
       </div>
-      <div id="economic_analysis_datasets_tab" class="tab_button tab_inactive">
+      <div id="single_department_datasets_tab" class="tab_button tab_inactive">
           <a href="#">Datasets</a>
       </div>
   </div>  
@@ -178,7 +178,7 @@ $data_stories_query_posts = $data_stories_query->posts;
 <!-- End of Output main page tabs -->
 
 <!-- start of main analysys tab -->
-<div id="economic_analysis_dashboards_tab_content" class="tab_content">
+<div id="single_department_dashboards_tab_content" class="tab_content">
 
     <!-- start of tab stats -->
     <div class="tab_stats_section">
@@ -333,21 +333,17 @@ left_vertical_tab_current_tab_active
               </div>
               
               <div class="dashboard_author_etc_container">
-
-                <div class="dashboard_author">
-                  <span>AUTHOR:</span>
-                  <span><?php echo $dashboard_author; ?></span>
-                </div>
-
-                <div class="dashboard_last_update">
-                  <span><!--LAST UPDATE:--></span>
-                  <span><?php //echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
-                </div>
-
-                <div class="dashboard_meta_info_popup_button">
-                  <a id="meta_info_popup_show" href="#">About this data</a>          
-                </div>
-                
+                  <div class="dashboard_author">
+                    <span>AUTHOR:</span>
+                    <span><?php echo $dashboard_author; ?></span>
+                  </div>
+                  <div class="dashboard_last_update">
+                    <span><!--LAST UPDATE:--></span>
+                    <span><?php //echo date_format($dashboard_last_update,"Y-m-d"); ?></span>
+                  </div>
+                  <div class="dashboard_meta_info_popup_button">
+                    <a id="meta_info_popup_show" href="#">About this data</a>          
+                  </div>
               </div>
               <div id="meta_info_popup_content">
                   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24">
@@ -379,7 +375,7 @@ left_vertical_tab_current_tab_active
   <!-- Department page Data stories tabs -->
  
 
-  <div id="economic_analysis_datastories_tab_content" class="tab_content tab-content-inactive" style="">
+  <div id="single_department_datastories_tab_content" class="tab_content tab_content_inactive">
       <!-- Sidebar right -->
       <div></div>
       <div class="data_stories_container">          
@@ -390,9 +386,10 @@ left_vertical_tab_current_tab_active
                   $data_story_author = $data_story_pod->field( 'data_story_author' );
                   $data_story_published_date = date_create( $data_story_pod->field( 'post_modified' ) );
                   $data_story_featured_image = $data_story_pod->field( 'data_story_featured_image' );
+                  $data_story_preview_text = $data_story_pod->field( 'data_story_preview_text' );
                   $data_story_url = get_permalink( $data_story->ID );
-
-                  //var_dump($data_story_pod);
+                  
+                  $data_story_categories = $data_story_pod->field('department_category.name');
 
                   ?>                 
 
@@ -401,18 +398,15 @@ left_vertical_tab_current_tab_active
                     <a id="data_story_link_<?php echo $data_story->ID; ?>" class="data_story_link" href="<?php echo $data_story_url; ?>">   
 
                       <div class="data_story_image_text">
-                          The following sections serve as a guide to the Economy and Employment chapter, Population and Demographics chapter, the Environment and Natural Wealth chapter and the Urban Governance chapter.
+                          <?php echo $data_story_preview_text; ?>
                       </div>  
                                     
                       <div class="data_story_image_wrapper" style="background-image: url('<?php echo $data_story_featured_image["guid"]; ?>')">
                         <div class="data_story_chips_wrapper">
                             <span>
-                              Research
+                            <?php echo implode(', ', $data_story_categories); ?>
                             </span>
                         </div>
-                        <!--<div class="data_story_image_text">
-                          The following sections serve as a guide to the Economy and Employment chapter, Population and Demographics chapter, the Environment and Natural Wealth chapter and the Urban Governance chapter.
-                        </div>-->
                       </div>
 
                       <div class="data_story_white_text_box">
@@ -447,7 +441,7 @@ left_vertical_tab_current_tab_active
       <div></div>
   </div>  
   
-  <div id="economic_analysis_datasets_tab_content" class="tab_content tab-content-inactive">
+  <div id="single_department_datasets_tab_content" class="tab_content tab_content_inactive">
     <iframe src="<?php echo $department_datasets_iframe_url; ?>" width="100%" height="100%" frameborder="0"></iframe>
   </div>  
   

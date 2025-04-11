@@ -1,7 +1,3 @@
-
-
-
-
 /* Initialise jQuery on Page ready */
 jQuery(document).ready(function($) {
         

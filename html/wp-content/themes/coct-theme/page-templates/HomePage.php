@@ -4,7 +4,21 @@
     */
 ?>  
 
-<?php get_header(); ?>
+<?php 
+get_header(); 
+
+
+
+/* Get departments */
+$department_query_args = array(
+  'post_type'=> 'department',
+  'order'    => 'ASC',
+  'posts_per_page'   => -1,
+);
+$department_query = new WP_Query( $department_query_args );
+$department_query_posts = $department_query->posts;
+
+?>
 
 <div id="home_banner">
     <div></div>
@@ -21,20 +35,39 @@
     <div></div>
 </div>
 
+
 <div id="home_page_links">
+  <!--
   <div></div>
-  <a href="<?php echo home_url()."/department/economic-analysis"; ?>" class="item">
-      <img src="<?php echo get_theme_file_uri('/images/economic_analysis_icon.png'); ?>">
+  <a href="<?php //echo home_url()."/department/economic-analysis"; ?>" class="item">
+      <img src="<?php //echo get_theme_file_uri('/images/economic_analysis_icon.png'); ?>">
       <br>
       <span>Economic Analysis</span>
   </a>
-  <a href="<?php echo home_url()."/department/research"; ?>" class="item">
-      <img src="<?php echo get_theme_file_uri('/images/research_icon.png'); ?>">
+  <a href="<?php //echo home_url()."/department/research"; ?>" class="item">
+      <img src="<?php //echo get_theme_file_uri('/images/research_icon.png'); ?>">
       <br>
       <span>Research</span>
   </a>
   <div></div>
-  <div></div>  
+  <div></div>
+  -->  
+   <?php
+   foreach($department_query_posts as $department){
+      $department_pod = pods( 'department', $department->ID );
+      $department_featured_image = $department_pod->field( 'featured_image' );
+      $department_url = get_post_permalink($department->ID);
+        ?>
+        <!--<div class="home_page_department">-->
+            <a href="<?php echo $department_url; ?>" class="item">
+                <img src="<?php echo $department_featured_image["guid"]; ?>">
+                <br>
+                <span><?php echo $department->post_title; ?></span>
+            </a>
+        <!--</div>-->
+        <?php
+   }  
+   ?>
 </div>
 
    
