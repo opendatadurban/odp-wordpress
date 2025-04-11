@@ -7,12 +7,11 @@
 <?php 
 get_header(); 
 
-
-
 /* Get departments */
 $department_query_args = array(
   'post_type'=> 'department',
   'order'    => 'ASC',
+  'orderby' => 'post_title',
   'post_status'     => 'publish',
   'posts_per_page'   => -1,
 );
