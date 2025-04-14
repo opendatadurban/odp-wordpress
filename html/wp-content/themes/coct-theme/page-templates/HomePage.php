@@ -36,35 +36,18 @@ $department_query_posts = $department_query->posts;
 </div>
 
 
-<div id="home_page_links">
-  <!--
-  <div></div>
-  <a href="<?php //echo home_url()."/department/economic-analysis"; ?>" class="item">
-      <img src="<?php //echo get_theme_file_uri('/images/economic_analysis_icon.png'); ?>">
-      <br>
-      <span>Economic Analysis</span>
-  </a>
-  <a href="<?php //echo home_url()."/department/research"; ?>" class="item">
-      <img src="<?php //echo get_theme_file_uri('/images/research_icon.png'); ?>">
-      <br>
-      <span>Research</span>
-  </a>
-  <div></div>
-  <div></div>
-  -->  
+<div id="home_page_links">  
    <?php
    foreach($department_query_posts as $department){
       $department_pod = pods( 'department', $department->ID );
       $department_featured_image = $department_pod->field( 'featured_image' );
       $department_url = get_post_permalink($department->ID);
         ?>
-        <!--<div class="home_page_department">-->
             <a href="<?php echo $department_url; ?>" class="item">
                 <img src="<?php echo $department_featured_image["guid"]; ?>">
                 <br>
                 <span><?php echo $department->post_title; ?></span>
             </a>
-        <!--</div>-->
         <?php
    }  
    ?>
