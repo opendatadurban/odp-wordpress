@@ -68,7 +68,29 @@ function redirect_department_content_posts() {
         $terms = get_the_terms( $post->ID , 'department_category' );
         //check if there is a categofry for the department content        
         if( isset($terms[0]->slug) && !empty($terms[0]->slug) ){
-            $redirect_url = get_site_url() . '/department/' . $terms[0]->slug.'/?dc=' . $path;    
+
+            /* Get correct department */
+            $department_args = array(
+                'post_type'=> 'department',
+                'department_category' => $terms[0]->slug,
+                'orderby' => 'publish_date',
+                'post_status'     => 'publish',
+                'tax_query' => array(
+                    array(
+                    'taxonomy' => 'department_category',
+                    'field' => 'slug',
+                    'terms' => $terms[0]->slug,
+                    ),
+                ),
+            
+                'order'    => 'ASC',
+                'posts_per_page'   => -1,
+            );
+            $department_query = new WP_Query( $department_args );
+            $department_query_posts = $department_query->posts;
+            $department_slug = $department_query_posts[0]->post_name;
+
+            $redirect_url = get_site_url() . '/department/' . $department_slug .'/?dc=' . $path;    
             wp_redirect( $redirect_url );
             exit;
         }else{
@@ -79,6 +101,8 @@ function redirect_department_content_posts() {
     }
 }
 add_action( 'template_redirect', 'redirect_department_content_posts' );   
+
+
 
 
 
