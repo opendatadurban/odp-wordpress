@@ -60,6 +60,25 @@ function coct_add_favicon(){ ?>
 add_action('wp_head','coct_add_favicon');
 
 
+/* Function to redirect single department content posts to their department page  */
+function redirect_department_content_posts() {
+    if ( is_singular( 'department_content' ) ) {
+        global $post;    
+        $path = $post->post_name;
+        $terms = get_the_terms( $post->ID , 'department_category' );
+        //check if there is a categofry for the department content        
+        if( isset($terms[0]->slug) && !empty($terms[0]->slug) ){
+            $redirect_url = get_site_url() . '/department/' . $terms[0]->slug.'/?dc=' . $path;    
+            wp_redirect( $redirect_url );
+            exit;
+        }else{
+            $redirect_url = get_site_url();    
+            wp_redirect( $redirect_url );
+            exit;
+        }            
+    }
+}
+add_action( 'template_redirect', 'redirect_department_content_posts' );   
 
 
 

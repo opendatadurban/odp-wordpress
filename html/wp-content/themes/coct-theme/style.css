@@ -177,7 +177,7 @@ body {
     font-size: 16px;
 }
 
-@media only screen and (max-width:1000px)  { /* smartphones, Android phones, landscape iPhone */ 
+@media only screen and (max-width:1000px)  { /* Tablet size */ 
 
     #home_page_links {        
         justify-content: center;    
@@ -190,7 +190,7 @@ body {
 
 }
 
-@media only screen and (max-width:800px)  { /* smartphones, Android phones, landscape iPhone */ 
+@media only screen and (max-width:800px)  { /* Smart phone size and smaller */ 
 
     /*#home_page_links {        
         grid-template-columns: 1fr;        
