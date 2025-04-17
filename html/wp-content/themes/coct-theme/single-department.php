@@ -51,20 +51,22 @@ $dashboard_iframe_height = $department->field( 'dashboard_iframe_height' );
 /* Get data for vertical side tabs / list items (department content)  */
 /* Get department category, then get department content */
 $dept_cat_term_obj_list = get_the_terms( get_the_id(), 'department_category' );
-$dept_cat_terms_string = join(', ', wp_list_pluck($dept_cat_term_obj_list, 'name'));
+$dept_cat_terms_string = join(', ', wp_list_pluck($dept_cat_term_obj_list, 'slug'));
+$dept_cat_terms_arr = explode(",", $dept_cat_terms_string );
 
 //Now get the department content by department category to which the department page belongs
 $department_content_query_args = array(
   'post_type'=> 'department_content',
   'post_status'     => 'publish',
-  'department_category'    => $dept_cat_terms_string,  
+  /*'department_category'    => $dept_cat_terms_string,*/  
   'meta_key' => 'tab_order_number',
   'orderby' => array( 'meta_value_num' => 'ASC' ),
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
         'field' => 'slug',
-        'terms' => $dept_cat_terms_string,
+        'operator' => 'IN',
+        'terms' => $dept_cat_terms_arr,
         ),
   ),
 
@@ -108,14 +110,15 @@ if ( $posted_dc = get_page_by_path( $posted_dc_slug, OBJECT, 'department_content
 /* Content for data stories tab */
 $data_stories_query_args = array(
   'post_type'=> 'department_data_stor',
-  'department_category'    => $dept_cat_terms_string,
+  /*'department_category'    => $dept_cat_terms_string,*/
   'orderby' => 'publish_date',
   'post_status'     => 'publish',
   'tax_query' => array(
         array(
         'taxonomy' => 'department_category',
         'field' => 'slug',
-        'terms' => $dept_cat_terms_string,
+        'operator' => 'IN',
+        'terms' => $dept_cat_terms_arr,
         ),
   ),
 
