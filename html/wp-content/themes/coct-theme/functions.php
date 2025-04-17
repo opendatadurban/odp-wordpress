@@ -132,8 +132,11 @@ function set_user_department_category_access() {
     $department_page_query = new WP_Query( $department_page_args );
     $department_page_query_posts = $department_page_query->posts;
     $dept_page_id_string = join(', ', wp_list_pluck($department_page_query_posts, 'ID'));
-   // Now save the department page pots ID's
-    $user_pod->save( 'allowed_department_page_ids', $dept_page_id_string );    
+    // Now save the department page pots ID's
+    if( isset($dept_page_id_string) && !empty($dept_page_id_string) ) {
+        $user_pod->save( 'allowed_department_page_ids', $dept_page_id_string );
+    }
+    
     
 
     //Get all the department content pots ID's in these categories
@@ -154,8 +157,9 @@ function set_user_department_category_access() {
     $department_content_query_posts = $department_content_query->posts;
     $dept_content_id_string = join(', ', wp_list_pluck($department_content_query_posts, 'ID'));
     // Now save the department content pots ID's
-    $user_pod->save( 'allowed_department_content_ids', $dept_content_id_string );    
-    
+    if( isset($dept_content_id_string) && !empty($dept_content_id_string) ) {
+        $user_pod->save( 'allowed_department_content_ids', $dept_content_id_string );    
+    }
 
     //Get all the department data stories pots ID's in these categories
     $department_data_story_args = array(
@@ -175,7 +179,9 @@ function set_user_department_category_access() {
     $department_data_story_query_posts = $department_data_story_query->posts;
     $dept_data_story_id_string = join(', ', wp_list_pluck($department_data_story_query_posts, 'ID'));
     // Now save the department data story ID's
-    $user_pod->save( 'allowed_department_data_story_ids', $dept_data_story_id_string );
+    if( isset($dept_data_story_id_string) && !empty($dept_data_story_id_string) ) {
+        $user_pod->save( 'allowed_department_data_story_ids', $dept_data_story_id_string );
+    }
 }
 //add_action('wp_login', 'set_user_department_category_access');
 add_action( "in_admin_footer", "set_user_department_category_access" );
